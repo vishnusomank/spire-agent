@@ -8,10 +8,10 @@ import (
 	"strings"
 
 	"github.com/accuknox/auto-policy-discovery/src/cluster"
-	"github.com/accuknox/spire-agent/internal/constants"
 	logr "github.com/sirupsen/logrus"
 	"github.com/spiffe/spire/pkg/agent"
 	"github.com/spiffe/spire/pkg/common/catalog"
+	"github.com/vishnusomank/spire-agent/internal/constants"
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )

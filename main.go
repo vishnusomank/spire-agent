@@ -8,12 +8,12 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/accuknox/spire-agent/internal/helper"
 	logr "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"github.com/spiffe/spire/cmd/spire-agent/cli/run"
 	"github.com/spiffe/spire/pkg/agent"
 	"github.com/spiffe/spire/pkg/common/log"
+	"github.com/vishnusomank/spire-agent/internal/helper"
 )
 
 var LocalConfig struct {
