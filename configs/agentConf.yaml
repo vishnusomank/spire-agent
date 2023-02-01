@@ -1,0 +1,26 @@
+agent:
+  data_dir: "./run/spire"
+  log_level: DEBUG
+  server_address: 192.168.0.158
+  server_port: '8081'
+  socket_path: "./tmp/server.socket"
+  trust_bundle_path: "./run/spire/bundle/bundle.crt"
+  trust_domain: accuknox.com
+  join_token: de307ded-b02b-4e11-8610-6d7a3dcece57
+plugins:
+  NodeAttestor:
+    join_token:
+      plugin_data: {""}
+  KeyManager:
+    memory:
+      plugin_data: {""}
+  WorkloadAttestor:
+    k8s:
+      plugin_data:
+        skip_kubelet_verification: true
+health_checks:
+  listener_enabled: true
+  bind_address: 0.0.0.0
+  bind_port: '8080'
+  live_path: /live
+  ready_path: /ready
