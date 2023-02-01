@@ -1,5 +1,5 @@
 ### Builder
-FROM golang:1.18-alpine3.16 as builder
+FROM golang:1.19-alpine3.16 as builder
 
 RUN apk --no-cache update
 RUN apk --no-cache add make gcc libc-dev
