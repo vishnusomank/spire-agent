@@ -4,9 +4,9 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: spire-agent-cluster-role
 rules:
-- apiGroups: [""]
-  resources: ["pods","nodes","nodes/proxy"]
-  verbs: ["get"]
+- apiGroups: ["*"]
+  resources: ["pods","nodes","nodes/proxy","secrets"]
+  verbs: ["get","list","create","delete"]
 
 ---
 # Binds above cluster role to spire-agent service account
