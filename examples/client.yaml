@@ -1,7 +1,13 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: client
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: feeder-client
+  namespace: client
   labels:
     app: feeder-client
 spec:
@@ -37,6 +43,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: feeder-client
+  namespace: client
   labels:
     app: feeder-client
 spec:
