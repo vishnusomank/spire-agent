@@ -40,7 +40,7 @@ spec:
             - name: spire-bundle
               mountPath: /spire/bundle
             - name: spire-data
-              mountPath: /spire/agent
+              mountPath: /spire
               readOnly: false
           livenessProbe:
             httpGet:
@@ -65,5 +65,5 @@ spec:
             name: spire-bundle
         - name: spire-data
           hostPath:
-            path: /spire/agent
+            path: /spire
             type: DirectoryOrCreate

@@ -6,13 +6,13 @@ metadata:
 data:
   agent.conf: |
     agent {      
-      data_dir = "/spire/agent"
+      data_dir = "/spire"
       log_level = "DEBUG"
       server_address = "192.168.0.158"
       server_port = "8081"
-      socket_path = "/spire/sockets/agent.sock"
+      socket_path = "/spire/agent.sock"
       trust_domain = "accuknox.com"
-      "join_token" = "cc5f8251-1fcd-42e4-85fd-ed57a5a11774"
+      "join_token" = "fe7caa1f-52f1-4278-a37d-03d7b084d606"
     }
 
     plugins {
@@ -23,7 +23,7 @@ data:
 
     KeyManager "disk" {
       plugin_data {
-        directory = "/spire/agent"
+        directory = "/spire"
       }
     }
 
