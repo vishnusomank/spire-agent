@@ -6,4 +6,5 @@ const (
 	KEYMANAGER_DISK_DIRECTORY = "directory"
 	KEYMANAGER_DISK_NAME      = "keys.json"
 	SPIRE_NAMESPACE           = "spire"
+	DEFAULT_AGENT_CONFIG_PATH = "/configs/agent.conf"
 )

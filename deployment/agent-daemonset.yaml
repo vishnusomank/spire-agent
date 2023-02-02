@@ -29,20 +29,23 @@ spec:
       containers:
         - name: spire-agent
           image: knoxuser/spire-agent:latest
-          args: ["-config", "/config/agent.conf"]
+          args: ["-c", "/config/agent.conf"]
+          env:
+          - name: JOIN_TOKEN
+            value: ""
           volumeMounts:
             - name: spire-config
               mountPath: /config
               readOnly: true
             - name: spire-bundle
-              mountPath: /run/spire/bundle
-            - name: spire-agent-socket
-              mountPath: /run/spire/sockets
+              mountPath: /spire/bundle
+            - name: spire-data
+              mountPath: /spire/agent
               readOnly: false
           livenessProbe:
             httpGet:
               path: /live
-              port: 8080
+              port: 9090
             failureThreshold: 2
             initialDelaySeconds: 15
             periodSeconds: 60
@@ -50,7 +53,7 @@ spec:
           readinessProbe:
             httpGet:
               path: /ready
-              port: 8080
+              port: 9090
             initialDelaySeconds: 5
             periodSeconds: 5
       volumes:
@@ -60,7 +63,7 @@ spec:
         - name: spire-bundle
           configMap:
             name: spire-bundle
-        - name: spire-agent-socket
+        - name: spire-data
           hostPath:
-            path: /run/spire/sockets
+            path: /spire/agent
             type: DirectoryOrCreate

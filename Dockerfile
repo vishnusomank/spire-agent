@@ -13,4 +13,5 @@ FROM alpine:3.16 as spire-agent
 
 COPY --from=builder /go/src/github.com/accuknox/spire-agent/configs/agent.conf /configs/agent.conf
 COPY --from=builder /go/src/github.com/accuknox/spire-agent/spire-agent /usr/bin/
-CMD ["/usr/bin/spire-agent -c /configs/agent.conf"]
+COPY --from=builder /go/src/github.com/accuknox/spire-agent/spire /spire/
+ENTRYPOINT ["/usr/bin/spire-agent"]
