@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: feeder-client
+  labels:
+    app: feeder-client
+spec:
+  selector:
+    matchLabels:
+      app: feeder-client
+  template:
+    metadata:
+      labels:
+        app: feeder-client
+    spec:
+      containers:
+        - name: feeder-client
+          image: knoxuser/client-server:latest
+          command: ["sleep"]
+          args: ["infinity"]
+          env:
+          - name: SERVER_ADDR
+            value: "192.168.0.158:50051"
+          - name: SPIRE_SERVER_ID
+            value: "spiffe://accuknox.com/knoxgrpc"
+          volumeMounts:
+            - name: spire-agent-socket
+              mountPath: /spire
+              readOnly: true
+      volumes:
+        - name: spire-agent-socket
+          hostPath:
+            path: /spire
+            type: Directory
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: feeder-client
+  labels:
+    app: feeder-client
+spec:
+  ports:
+  - name: http
+    port: 50051
+    targetPort: 50051
+  selector:
+    app: feeder-client
+  type: LoadBalancer

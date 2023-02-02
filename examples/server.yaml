@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: knoxgrpc
+  labels:
+    app: knoxgrpc
+spec:
+  selector:
+    matchLabels:
+      app: knoxgrpc
+  template:
+    metadata:
+      labels:
+        app: knoxgrpc
+    spec:
+      containers:
+        - name: knoxgrpc
+          image: knoxuser/client-server:latest
+          command: ["knoxgrpc"]
+          env:
+          - name: SPIRE_CLIENT_ID
+            value: "spiffe://accuknox.com/feeder-client"
+          volumeMounts:
+            - name: spire-agent-socket
+              mountPath: /spire
+              readOnly: true
+      volumes:
+        - name: spire-agent-socket
+          hostPath:
+            path: /spire
+            type: Directory
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: knoxgrpc
+  labels:
+    app: knoxgrpc
+spec:
+  ports:
+  - name: http
+    port: 50051
+    targetPort: 50051
+  selector:
+    app: knoxgrpc
+  type: LoadBalancer
