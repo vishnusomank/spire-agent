@@ -14,9 +14,10 @@ echo "Server up and running on IP $(kubectl -n spire get svc --no-headers | awk 
 
 echo "Generating Join Tokens for agents..."
 
+echo "Join Tokens for SaaS agent..."
 kubectl -n spire exec spire-server-0 -- /opt/spire/bin/spire-server token generate -ttl 21600 -spiffeID  spiffe://accuknox.com/agent/saas
 
-
+echo "Join Tokens for Client agent..."
 kubectl -n spire exec spire-server-0 -- /opt/spire/bin/spire-server token generate -ttl 21600 -spiffeID  spiffe://accuknox.com/agent/operator
 
 
