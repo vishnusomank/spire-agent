@@ -12,7 +12,7 @@ kubectl apply -f deployment/agent/.
 
 echo "Waiting for agent to start."
 
-kubectl wait --for=jsonpath='{.status.phase}'=Running -n spire -l app=spire-agent
+kubectl wait --for=jsonpath='{.status.phase}'=Running -n spire po -l app=spire-agent
 
 echo "Agent up and running"
 

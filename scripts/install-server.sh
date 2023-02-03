@@ -6,7 +6,7 @@ kubectl apply -f deployment/server/.
 
 echo "Waiting for server to start."
 
-kubectl wait --for=jsonpath='{.status.phase}'=Running -n spire -l app=spire-server
+kubectl wait --for=jsonpath='{.status.phase}'=Running -n spire po -l app=spire-server
 
 echo "Server up and running on IP $(kubectl -n spire get svc --no-headers | awk '{print $4}')"
 
