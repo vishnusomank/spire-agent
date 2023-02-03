@@ -12,6 +12,8 @@ kubectl wait --for=jsonpath='{.status.phase}'=Running -n spire po -l app=spire-s
 
 echo "Server up and running on IP $(kubectl -n spire get svc --no-headers | awk '{print $4}')"
 
+sleep 20
+
 echo "Generating Join Tokens for agents..."
 
 echo "Join Tokens for SaaS agent..."

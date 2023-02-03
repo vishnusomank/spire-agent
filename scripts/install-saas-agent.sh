@@ -20,4 +20,4 @@ echo "Agent up and running"
 
 echo "Bringing up logs"
 
-kubectl -n spire logs logs -f -lapp=spire-agent
+kubectl -n spire logs  -f -lapp=spire-agent
