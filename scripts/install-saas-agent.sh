@@ -8,7 +8,9 @@ read join_token
 
 sed -i "s/fe7caa1f-52f1-4278-a37d-03d7b084d606/$join_token/g" deployment/agent/agent-configmap.yaml
 
-kubectl apply -f deployment/agent/.
+kubectl create ns spire
+
+kubectl -n spire apply -f deployment/agent/.
 
 echo "Waiting for agent to start."
 

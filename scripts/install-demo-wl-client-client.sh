@@ -8,7 +8,7 @@ read server_ip
 
 sed -i "s/192.168.0.158/$server_ip/g" examples/client.yaml
 
-kubectl apply -f examples/client.yaml
+kubectl -n client apply -f examples/client.yaml
 
 echo "Waiting for demo worklaod client to start."
 

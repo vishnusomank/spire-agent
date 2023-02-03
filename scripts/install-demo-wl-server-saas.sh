@@ -2,7 +2,9 @@
 
 echo "Starting demo workload server installation"
 
-kubectl apply -f examples/server.yaml
+kubectl create ns spire
+
+kubectl -n spire apply -f examples/server.yaml
 
 echo "Waiting for demo workload server to start."
 

@@ -2,7 +2,9 @@
 
 echo "Starting spire-server installation"
 
-kubectl apply -f deployment/server/.
+kubectl create ns spire
+
+kubectl -n spire apply -f deployment/server/.
 
 echo "Waiting for server to start."
 
