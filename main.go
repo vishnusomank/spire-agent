@@ -7,7 +7,6 @@ import (
 	"os/signal"
 	"sync"
 	"syscall"
-	"time"
 
 	logr "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
@@ -15,7 +14,6 @@ import (
 	"github.com/spiffe/spire/pkg/agent"
 	"github.com/spiffe/spire/pkg/common/log"
 	"github.com/vishnusomank/spire-agent/internal/constants"
-	"github.com/vishnusomank/spire-agent/internal/helper"
 )
 
 var LocalConfig struct {
@@ -36,27 +34,10 @@ func main() {
 		Long:  `SPIFFE SPIRE Agent Service`,
 		Run: func(cmd *cobra.Command, args []string) {
 			initConfig()
-			if secret := helper.GetK8sSecrets(agentConf); secret.Name == "" {
-				wg.Add(1)
-				logr.Warn("no SVID found.")
-				go startAgent()
-				time.Sleep(10 * time.Second)
-				if err := helper.CreateK8sSecrets(agentConf); err != nil {
-					logr.WithError(err).Error("Could not create k8s secrets:")
-					return
-				}
-				logr.Info("Secret created.")
-				wg.Wait()
 
-			} else {
-				wg.Add(1)
-				err := helper.WriteSVIDKey(agentConf)
-				if err != nil {
-					return
-				}
-				startAgent()
-				wg.Wait()
-			}
+			wg.Add(1)
+			go startAgent()
+			wg.Wait()
 
 		},
 	}
@@ -92,7 +73,7 @@ func startAgent() {
 
 	if LocalConfig.ServerAddr != "" {
 
-		agentConf.ServerAddress = "dns://" + LocalConfig.ServerAddr
+		agentConf.ServerAddress = "dns:///" + LocalConfig.ServerAddr
 	}
 	if os.Getenv("JOIN_TOKEN") != "" {
 		agentConf.JoinToken = os.Getenv("JOIN_TOKEN")
@@ -113,7 +94,7 @@ func startAgent() {
 	if err != nil {
 		defer wg.Done()
 		logr.WithError(err).Error("Agent crashed: ")
-		helper.DeleteSVIDSecret()
+		//helper.DeleteSVIDSecret()
 		return
 	}
 	defer wg.Done()
